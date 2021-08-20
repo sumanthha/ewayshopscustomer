@@ -173,6 +173,7 @@ export class ProfileComponent implements OnInit {
       profile_name: this.selectedFile.name,
     });
   }
+
   ew_method(name: any) {
     // this.uiLoader.start();
     this.checkImage();
