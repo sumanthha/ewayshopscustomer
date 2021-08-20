@@ -1,0 +1,85 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>FAQ</h2>
+    </div>
+    <ul class="breadcrumb">
+      <li *ngIf="branch_name != null"><a href="#">Home</a></li>
+      <!-- <li *ngIf="branch_name != null">
+        <a>{{ branch_name }}</a>
+      </li> -->
+      <li><a (click)="myAccount()" style="cursor: pointer">My Account</a></li>
+      <li><a>Faq</a></li>
+    </ul>
+  </div>
+
+  <div class="row productsec">
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <h2 style="font-size: 25px">My Account</h2>
+      <div class="category_list">
+        <p [routerLink]="['/profile']" routerLinkActive="active">Profile</p>
+        <br />
+        <p [routerLink]="['/mycart']" routerLinkActive="active">My Cart</p>
+        <br />
+        <p [routerLink]="['/myorders']" routerLinkActive="active">My Orders</p>
+        <br />
+        <p [routerLink]="['/wishlist']" routerLinkActive="active">My Wishlist</p>
+        <br />
+        <p [routerLink]="['/faq']" routerLinkActive="active">FAQ</p>
+        <br />
+        <p style="margin-bottom: 2vw !important" (click)="logout()">Logout</p>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-10 col-xs-10">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 style="margin-bottom: 33px; margin-top: 1px; font-size: 24px">FAQ</h2>
+          <div class="accordion" id="faq">
+            <mat-accordion>
+              <mat-expansion-panel class="panel_sty">
+                <mat-expansion-panel-header class="panel_head">
+                  How do I cancel my orders ?
+                </mat-expansion-panel-header>
+                You can cancel your orders now on eWayShops <br />
+                Go to Menu on right top corner > Orders > Active Order > Cancel Orders <br />
+                You will be requesting the order cancellation first. Once it's confirmed,it will cancelled
+              </mat-expansion-panel>
+              <mat-expansion-panel class="panel_sty">
+                <mat-expansion-panel-header class="panel_head">
+                  Do you avail special offers ?
+                </mat-expansion-panel-header>
+                You can cancel your orders now on eWayShops <br />
+                Go to Menu on right top corner > Orders > Active Order > Cancel Orders <br />
+                You will be requesting the order cancellation first. Once it's confirmed,it will cancelled
+              </mat-expansion-panel>
+              <mat-expansion-panel class="panel_sty">
+                <mat-expansion-panel-header class="panel_head">
+                  How do I partner with eWayShops ?
+                </mat-expansion-panel-header>
+                You can cancel your orders now on eWayShops <br />
+                Go to Menu on right top corner > Orders > Active Order > Cancel Orders <br />
+                You will be requesting the order cancellation first. Once it's confirmed,it will cancelled
+              </mat-expansion-panel>
+              <mat-expansion-panel class="panel_sty">
+                <mat-expansion-panel-header class="panel_head">
+                  What are the safety precautions taken ?
+                </mat-expansion-panel-header>
+                You can cancel your orders now on eWayShops <br />
+                Go to Menu on right top corner > Orders > Active Order > Cancel Orders <br />
+                You will be requesting the order cancellation first. Once it's confirmed,it will cancelled
+              </mat-expansion-panel>
+              <mat-expansion-panel class="panel_sty">
+                <mat-expansion-panel-header class="panel_head">
+                  How do I become eWayShops delivery personal ?
+                </mat-expansion-panel-header>
+                You can cancel your orders now on eWayShops <br />
+                Go to Menu on right top corner > Orders > Active Order > Cancel Orders <br />
+                You will be requesting the order cancellation first. Once it's confirmed,it will cancelled
+              </mat-expansion-panel>
+            </mat-accordion>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,199 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>Profile</h2>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <!-- <li *ngIf="branch_name != null">
+        <a href="#">{{ branch_name }}</a>
+      </li> -->
+      <li><a>My Account</a></li>
+      <li><a>Profile</a></li>
+    </ul>
+  </div>
+
+  <div class="row productsec">
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <h2 style="font-size: 25px">My Account</h2>
+      <div class="category_list">
+        <p [routerLink]="['/profile']" routerLinkActive="active">Profile</p>
+        <br />
+        <p [routerLink]="['/mycart']" routerLinkActive="active">My Cart</p>
+        <br />
+        <p [routerLink]="['/myorders']" routerLinkActive="active">My Orders</p>
+        <br />
+        <p [routerLink]="['/wishlist']" routerLinkActive="active">My Wishlist</p>
+        <br />
+        <p [routerLink]="['/faq']" routerLinkActive="active">FAQ</p>
+        <br />
+        <p style="margin-bottom: 2vw !important" (click)="logout()">Logout</p>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-6 col-xs-12" *ngIf="isShowProfile" style="margin-top: 9px; margin-left: 9px">
+      <div class="row">
+        <div class="col-md-2">
+          <img *ngIf="!getprofilelist?.photo" src="assets/dashboard/profile-user.png" />
+          <img
+            *ngIf="getprofilelist?.photo"
+            style="height: 60px; width: 60px; object-fit: cover"
+            src="{{ getprofilelist?.photo }}"
+          />
+        </div>
+        <div>
+          <h3>Welcome, {{ getprofilelist?.first_name }} {{ getprofilelist?.last_name }} !</h3>
+          <p class="editprofile_txt" (click)="edit_profile(getprofilelist)">Edit Profile</p>
+        </div>
+      </div>
+      <div class="profile_details">
+        <span>Name</span>
+        <p>{{ getprofilelist?.first_name }} {{ getprofilelist?.last_name }}</p>
+        <span>Email Address</span>
+        <p><img src="assets/product/mail.png" /> {{ getprofilelist?.email }}</p>
+        <span>Phone Number</span>
+        <p><img src="assets/product/phone.png" /> {{ getprofilelist?.phone_number }}</p>
+        <span>Address</span>
+        <p>
+          <img src="assets/product/maps.png" style="margin-right: 2px" />{{ getprofilelist?.address }},
+          {{ getprofilelist?.city }}, {{ getprofilelist?.state }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-6 col-xs-12" *ngIf="!isShowProfile" style="margin-top: 9px; margin-left: 9px">
+      <div class="row">
+        <div class="col-md-2">
+          <img *ngIf="!getprofilelist?.photo" src="assets/dashboard/profile-user.png" />
+          <img
+            *ngIf="getprofilelist?.photo"
+            style="height: 60px; width: 60px; object-fit: cover"
+            src="{{ getprofilelist?.photo }}"
+          />
+        </div>
+        <div>
+          <h3>Welcome, {{ getprofilelist?.first_name }} {{ getprofilelist?.last_name }}!</h3>
+          <!-- <p class="editprofile_txt">Edit Profile</p> -->
+        </div>
+      </div>
+      <div class="profile_details">
+        <form class="login-form product_form" [formGroup]="profile_form" (ngSubmit)="updateprofile()">
+          
+          <div class="form_errors">
+            <span *ngIf="submitted && f.first_name.errors?.required" class="error">First name field is required</span>
+            <span *ngIf="submitted && f.last_name.errors?.required" class="error">Last name field is required</span>
+            <span *ngIf="submitted && f.email.errors?.required" class="error">Email field is required</span>
+            <span *ngIf="submitted && f.phone_no.errors?.required" class="error">Phone_no field is required</span>
+            <span *ngIf="submitted && f.address.errors?.required" class="error">Address field is required</span>
+            <span *ngIf="submitted && f.city.errors?.required" class="error">City field is required</span>
+            <span *ngIf="submitted && f.state.errors?.required" class="error">State field is required</span>
+            <span *ngIf="submitted && f.zipcode.errors?.required" class="error">zipcode field is required</span>
+          </div>
+          <div class="row">
+            
+            <div class="col-md-4 editprofile_input1">
+              <mat-label>First Name</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  formControlName="first_name"
+                  [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
+                />
+              </mat-form-field>
+
+            </div>
+            <div class="col-md-4 editprofile_input">
+              <mat-label>Last Name</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  formControlName="last_name"
+                  [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
+                />
+              </mat-form-field>
+              
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 editprofile_input1">
+              <mat-label>Email Addres</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  readonly
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 editprofile_input">
+              <mat-label>Phone Number</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input
+                  matInput
+                  maxlength="20"
+                  formControlName="phone_no"
+                  (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.phone_no.errors }"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 editprofile_input1">
+              <mat-label>Address</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput formControlName="address" [ngClass]="{ 'is-invalid': submitted && f.address.errors }" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 editprofile_input">
+              <mat-label>City</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput formControlName="city" [ngClass]="{ 'is-invalid': submitted && f.city.errors }" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4 editprofile_input1">
+              <mat-label>State</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput formControlName="state" [ngClass]="{ 'is-invalid': submitted && f.state.errors }" />
+              </mat-form-field>
+            </div>
+            <div class="col-md-4 editprofile_input">
+              <mat-label>Zipcode</mat-label>
+              <mat-form-field class="example-full-width" appearance="fill">
+                <input matInput formControlName="zipcode" [ngClass]="{ 'is-invalid': submitted && f.zipcode.errors }" />
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <!-- <mat-form-field class="example-full-width" appearance="fill"> -->
+              <input [hidden]="true" (change)="onFileSelect($event)" type="file" accept="all/*" #fileSelect />
+
+              <input
+                class="image_input"
+                readonly
+                placeholder="Choose profile Image..."
+                formControlName="profile_name"
+              />
+              <button
+                type="button"
+                matSuffix
+                mat-icon-button
+                class="upload_btn"
+                (click)="fileSelect.click()"
+                matTooltip="Select a Image file"
+              >
+                <mat-icon class="upload_icon">cloud_upload</mat-icon>
+              </button>
+            </div>
+            <!-- </mat-form-field> -->
+          </div>
+
+          <button class="update_btn" type="submit">Update</button>
+          <button class="cancel_btn" type="button" (click)="cancel()">Cancel</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

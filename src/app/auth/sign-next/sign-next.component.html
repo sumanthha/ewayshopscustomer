@@ -1,0 +1,158 @@
+<div class="container-fluid login_btn_container">
+  <div class="row no-gutters">
+    <div class="col-md-12">
+      <div class="right_container" style="width: 30vw !important; position: relative; background-color: #ffffff">
+        <div class="right_content">
+          <img (click)="home()" src="assets/login/logo.png" class="color_logo w-100" alt="eWayShop-logo" />
+          <div class="login_form" id="sing_up">
+            <div class="reg">
+              <span class="reg_txt">Personal Information</span>
+            </div>
+            <!-- <p>Welcome Back, Please Signup to your account</p> -->
+            <div class="form_errors">
+              <span *ngIf="submitted && f.first_name.errors?.required" class="error">First Name is required</span>
+              <span *ngIf="submitted && f.last_name.errors?.required" class="error">Last Name is required</span>
+              <!-- <span *ngIf="submitted && f.email.errors?.required" class="error">Email field is required</span>
+              <span *ngIf="submitted && f.email.errors?.email" class="error">Please enter the valid email address</span> -->
+              <span *ngIf="submitted && f.address.errors?.required" class="error">Address is required</span>
+              <span *ngIf="submitted && f.city.errors?.required" class="error">City Name is required</span>
+              <span *ngIf="submitted && f.state.errors?.required" class="error">State is required</span>
+              <span *ngIf="submitted && f.zipcode.errors?.required" class="error">Zipcode is required</span>
+              <span *ngIf="submitted && f.zipcode.errors?.pattern" class="error">Enter a valid Zipcode </span>
+              <!-- <span *ngIf="submitted && f.phone_no.errors?.required" class="error">Phone no field is required</span> -->
+              <span *ngIf="submitted && f.password.errors?.required" class="error">Password is required</span>
+              <span *ngIf="submitted && f.confirm_password.errors?.required" class="error"
+                >Confirm password is required</span
+              >
+              <span [hidden]="showpswdmatch" style="color: red; font-size: 15px"> Confirm password does't match</span>
+            </div>
+
+            <form class="login-form" [formGroup]="signup_form" (ngSubmit)="signup()">
+              <mat-form-field class="login-full-width">
+                <mat-label>First Name *</mat-label>
+                <input
+                  matInput
+                  value=""
+                  formControlName="first_name"
+                  (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.first_name.errors }"
+                />
+              </mat-form-field>
+              <mat-form-field class="login-full-width">
+                <mat-label>Last Name *</mat-label>
+                <input
+                  matInput
+                  value=""
+                  formControlName="last_name"
+                  (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.last_name.errors }"
+                />
+              </mat-form-field>
+
+              <!-- <mat-form-field class="login-full-width">
+                <mat-label>Email Address *</mat-label>
+                <input matInput value="" formControlName="email" (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                />
+              </mat-form-field> -->
+
+              <div><span class="reg_txt">Address</span></div>
+
+              <mat-form-field class="login-full-width">
+                <mat-label>Address *</mat-label>
+                <input
+                  type="text"
+                  [(ngModel)]="address"
+                  matInput
+                  formControlName="address"
+                  [ngClass]="{ 'is-invalid': submitted && f.address.errors }"
+                />
+              </mat-form-field>
+              <mat-form-field class="login-full-width">
+                <mat-label>City *</mat-label>
+                <input
+                  matInput
+                  value=""
+                  formControlName="city"
+                  (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.city.errors }"
+                />
+              </mat-form-field>
+              <mat-form-field class="login-full-width">
+                <mat-label>State *</mat-label>
+                <input
+                  matInput
+                  value=""
+                  formControlName="state"
+                  (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.state.errors }"
+                />
+              </mat-form-field>
+              <mat-form-field class="login-full-width">
+                <mat-label>ZipCode *</mat-label>
+                <input
+                  matInput
+                  value=""
+                  formControlName="zipcode"
+                  (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.zipcode.errors }"
+                />
+              </mat-form-field>
+
+              <!-- <mat-form-field class="login-full-width">
+                <mat-label>Phone Number *</mat-label>
+                <input matInput value="" formControlName="phone_no" (keypress)="omit_special_char($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.phone_no.errors }"
+                />
+              </mat-form-field> -->
+              <div><span class="reg_txt">Create Password</span></div>
+
+              <mat-form-field class="login-full-width">
+                <mat-label>Password *</mat-label>
+                <input
+                  matInput
+                  [type]="show_button ? 'text' : 'password'"
+                  formControlName="password"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                  matInput
+                  showHideInput
+                />
+                <div
+                  class="show_password"
+                  (click)="showPass()"
+                  style="float: right; margin-top: -14px; cursor: pointer"
+                >
+                  <mat-icon [ngClass]="show ? 'visibility' : 'visibility_off'" matSuffix class="secondary-text">
+                  </mat-icon>
+                </div>
+              </mat-form-field>
+              <mat-form-field class="login-full-width">
+                <mat-label>Confirm Password *</mat-label>
+                <input
+                  matInput
+                  [type]="show_button1 ? 'text' : 'password'"
+                  formControlName="confirm_password"
+                  [ngClass]="{ 'is-invalid': submitted && f.confirm_password.errors }"
+                  matInput
+                  showHideInput
+                />
+                <div
+                  class="show_password"
+                  (click)="showConfpass()"
+                  style="float: right; margin-top: -14px; cursor: pointer"
+                >
+                  <mat-icon [ngClass]="showConfirm ? 'visibility' : 'visibility_off'" matSuffix class="secondary-text">
+                  </mat-icon>
+                </div>
+              </mat-form-field>
+
+              <div style="margin-top: 16px">
+                <button type="button" (click)="signup()" class="login_btn">Create Account</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

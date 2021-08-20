@@ -1,0 +1,13 @@
+.footerbanner {
+  background-image: url(subscribe.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 68vh;
+  padding: 50px 0;
+  display: flex;
+  align-items: center;
+}
+.message_box :focus
+{
+  border: none!important;
+}

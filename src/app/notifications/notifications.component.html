@@ -1,0 +1,37 @@
+<div
+  class="header accent"
+  style="display: flex; place-content: center space-between; align-items: center; margin-top: 2vw"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+  fxLayout.gt-xs="row"
+  fxLayoutAlign.gt-xs="space-between center"
+>
+  <!-- APP TITLE -->
+  <div class="logo mb-24 mb-sm-0" style="display: flex" fxLayout="row" fxLayoutAlign="start center">
+    <span class="logo-text h3 heading" [@animate]="{ value: '*', params: { delay: '100ms', x: '-25px' } }"
+      >Notifications
+    </span>
+
+    <div class="delete_icon" (click)="delete_btn()">
+      <mat-icon>delete</mat-icon>
+    </div>
+    <span class="delete_text">Delete</span>
+  </div>
+</div>
+<div class="container p-0">
+  <div class="row no-gutters">
+    <div class="col-md-12">
+      <div _ngcontent-dtd-c223="" class="help-box" *ngFor="let notify of GetNotification">
+        <div _ngcontent-dtd-c223="" class="row">
+          <div _ngcontent-dtd-c223="" class="col">
+            <p _ngcontent-dtd-c223="" class="order_desc">
+              {{ notify.desc }}.Order NO <span class="order_id">{{ notify.order_id }}</span>
+            </p>
+            <p class="order_date">{{ notify.created_on | date: 'MM-dd-yyyy' }}<span>Location (State,City)</span></p>
+          </div>
+          <input type="checkbox" class="check_box" (change)="onCheckboxChange($event, notify.id)" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

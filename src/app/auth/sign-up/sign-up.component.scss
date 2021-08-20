@@ -1,0 +1,339 @@
+@import "src/theme/theme-variables";
+
+:host {
+  display: flex;
+  flex: 1;
+  background-color: #f5f5f5;
+}
+
+.inline-loader {
+  display: inline-block;
+}
+
+.version {
+  margin: 0;
+}
+.input-group-text {
+  font-weight: 600;
+    background-color: white !important;
+    margin-left: -16px !important;
+    border: none;
+    margin-top: 14px;
+    font-size: 15px;
+}
+
+.login-container,
+.mat-form-field {
+  width: 100%;
+}
+
+.login-fields > :not(:last-child) {
+  margin-bottom: 8px;
+}
+
+.login-error {
+  color: mat-color($app-warn);
+}
+
+/*  CUSTOM LOGIN DESIGN   */
+div#login_container {
+  width: 100%;
+  max-width: 100%;
+}
+.left__login_content {
+  background: url("/assets/login/login_bg.png");
+  width: 100%;
+
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+}
+.left__login_content {
+  padding-top: 13%;
+  padding-left: 10%;
+}
+.left__login_content img {
+  width: 100%;
+  max-width: 250px;
+}
+.login__left__content {
+  position: absolute;
+  top: 50%;
+  color: #ffffff;
+  font-family: "Roboto";
+  font-weight: normal;
+}
+.login__left__content h5 {
+  font-size: 40px;
+}
+.login__left__content {
+  width: 100%;
+  max-width: 440px;
+}
+.login__left__content p {
+  font-size: 18px;
+}
+.login__left__content span {
+  display: block;
+  position: absolute;
+  padding-top: 140px;
+  font-size: 18px;
+}
+.color_logo {
+  max-width: 200px;
+  margin-left: 45px;
+  margin-bottom: 21px;
+  cursor: pointer;
+}
+.right_content {
+  padding: 38px 39px;
+}
+.login_reg {
+  margin-bottom: 1vw;
+  margin-top: 0vw;
+}
+.login_form a {
+  color: #000000;
+  font-size: 15px;
+  font-family: "Roboto";
+  font-weight: 600;
+  cursor: pointer;
+}
+.login_form a:focus {
+  color: #81e739;
+  font-weight: 700;
+}
+.login_form {
+  font-family: "Roboto";
+  margin-top: 21px !important;
+}
+.login_form p {
+  color: #818181;
+  font-size: 14px;
+  width: 100%;
+  // max-width: 225px;
+}
+.login_btn {
+  background: #000000;
+  color: #ffffff;
+  border: solid 2px #000000 !important;
+}
+.login_btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+.sign_btn:hover {
+  background: #000000;
+  color: #ffffff;
+}
+.sign_btn {
+  background-color: #ffffff;
+  color: #000000;
+  border: solid 2px #000000 !important;
+}
+.login_btn_container button {
+  font-family: "Roboto";
+  font-size: 18px;
+  border: 0;
+  width: 100%;
+  // max-width: 145px;
+  padding: 10px 0;
+  margin-right: 16px;
+  // margin-top: 3vw;
+  transition: all 0.4s ease-in-out;
+}
+.login-form mat-form-field.mat-form-field.login-full-width {
+  // width: 380px;
+  padding: 0 10px;
+  box-shadow: 0px 6px 16px 0 rgb(71 71 71 / 9%);
+  border: solid 0.3px rgba(71, 71, 71, 0.09);
+  background-color: #ffffff;
+}
+.login-form mat-form-field.mat-form-field.login-full-width.password_field {
+  border-top: 0 !important;
+}
+::ng-deep {
+  .mat-form-field-underline {
+    display: none;
+  }
+  .login-form .mat-form-field-appearance-legacy .mat-form-field-wrapper {
+    padding-bottom: 0 !important;
+  }
+  .login-form .mat-form-field-infix {
+    border-top: 0;
+  }
+  .login-form .mat-form-field-label-wrapper {
+    top: -5px;
+  }
+  .login-form .mat-form-field-appearance-legacy .mat-form-field-infix {
+    padding: 15px;
+  }
+  mat-form-field.mat-form-field.login-full-width {
+    width: 100%;
+    max-width: 330px;
+  }
+  .mat-form-field-should-float .mat-form-field-label {
+    margin-top: 10px;
+  }
+  .login-form .mat-input-element {
+    color: #000000 !important;
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: bold;
+  }
+  .login-form .mat-focused {
+    position: relative;
+  }
+  .login-form .mat-focused:after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    background: #81e739;
+  }
+  .register_name {
+    color: #81e739 !important;
+    font-size: 16px !important;
+  }
+  .account_info {
+    margin: 15px;
+    text-align: center;
+  }
+  label.mat-form-field-label {
+    color: #8b8b8b !important;
+    font-family: Roboto;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+  .login-form .forget-link_new {
+    display: block;
+    color: #000000;
+    text-decoration: none;
+    font-family: "Roboto";
+    font-size: 16px;
+    margin: 10px 0;
+  }
+  .forget-link_new:hover {
+    color: #000000;
+    text-decoration: none;
+  }
+  .form_errors .error {
+    color: #ff7b7b;
+    font-family: Roboto;
+    font-size: 15px;
+    margin-top: -10px;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+@media only screen and (max-width: 1300) {
+  .mat-form-field.mat-form-field.login-full-width {
+    max-width: 374px !important;
+  }
+}
+@media only screen and (max-width: 580px) {
+  .login_btn_container button {
+    margin-right: 0;
+    max-width: 100%;
+    margin-top: 15px;
+  }
+  .right_container {
+    height: auto !important;
+  }
+  .login_form h3 {
+    margin-top: 20px;
+  }
+  .color_logo {
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .right_content {
+    padding: 20px 0;
+    width: 85%;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  .login__left__content {
+    position: static;
+    left: 0;
+    width: 90% !important;
+    margin: 0 auto !important;
+    text-align: center;
+    right: 0;
+    max-width: 100%;
+    padding: 0;
+  }
+  form.login-form .mat-form-field {
+    width: 100% !important;
+  }
+  .left__login_content {
+    padding: 0;
+  }
+  .login__left__content span {
+    position: static;
+    padding-top: 0;
+    padding-bottom: 20px;
+  }
+  .left__login_content {
+    height: 100%;
+  }
+  .login__left__content h5 {
+    font-size: 32px;
+    padding-top: 20px;
+  }
+  .left__login_content img {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 30px;
+  }
+}
+@media screen and (max-width: 767.98px) {
+}
+
+@media only screen and (min-width: 1400px) {
+  .container-fluid {
+    width: 100%;
+    max-width: 1920px !important;
+  }
+}
+.show_password {
+  background: transparent;
+  border: 0;
+  position: absolute;
+  right: 0;
+  top: 8px;
+  cursor: pointer;
+}
+.login_btn_container {
+  background-image: url("../../../assets/register_login/background.png");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100%;
+  padding: 3vw 35vw;
+}
+.reg {
+  margin-bottom: 1vw;
+  margin-top: -1vw;
+}
+.reg_txt {
+  font-size: 20px;
+  font-weight: 600;
+}
+.footer_link {
+  font-size: 13px;
+  margin-top: 1vw;
+}
+.login_link {
+  color: #81e739 !important;
+}
+.term_policy {
+  margin: -1vw 0vw 1vw 0vw;
+}

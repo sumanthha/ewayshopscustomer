@@ -1,0 +1,16 @@
+<div class="cart-main-wrapper">
+  <h2>My Account</h2>
+  <div class="category_list">
+    <p [routerLink]="['/profile']" routerLinkActive="active">Profile</p>
+    <br />
+    <p [routerLink]="['/mycart']" routerLinkActive="active">My Cart</p>
+    <br />
+    <p [routerLink]="['/myorders']" routerLinkActive="active">My Orders</p>
+    <br />
+    <p [routerLink]="['/wishlist']" routerLinkActive="active">wishlist</p>
+    <br />
+    <p [routerLink]="['/faq']" routerLinkActive="active">FAQ</p>
+    <br />
+    <p style="margin-bottom: 2vw !important" (click)="logout()">Logout</p>
+  </div>
+</div>

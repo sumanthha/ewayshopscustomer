@@ -1,0 +1,75 @@
+body {
+  background: #fff;
+}
+
+.location h2 {
+  background-color: #72d826;
+  color: #fff;
+  padding: 20px 30px;
+}
+ul.breadcrumb {
+  padding: 8px 16px;
+  list-style: none;
+  background-color: #fff;
+  margin: 0 0 30px;
+  font-weight: 600;
+}
+
+ul.breadcrumb li {
+  display: inline;
+}
+
+ul.breadcrumb li + li:before {
+  padding: 8px;
+  color: black;
+  content: ">";
+}
+
+ul.breadcrumb li a {
+  color: #000;
+  font-size: 16px;
+}
+
+.profile_details span {
+  font-size: 18px;
+  font-weight: 600;
+  // opacity: 0.5;
+}
+.profile_details p {
+  opacity: 0.6;
+  font-size: 16px;
+  font-weight: 500;
+  padding-bottom: 1.5vw;
+}
+.profile_details {
+  margin-top: 2vw;
+}
+
+P {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: -5px;
+}
+/* responsive css below */
+
+.category_list {
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 2vw;
+}
+.category_list p {
+  //margin-bottom: 1vw;
+}
+.category_list p:hover {
+  color: #72d826;
+}
+.category_list p:active {
+  background-color: #72d826;
+  color: white;
+  padding: 12px;
+}
+.category_list p.active {
+  background-color: #72d826;
+  color: white;
+  padding: 12px;
+}

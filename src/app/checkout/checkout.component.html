@@ -1,0 +1,181 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12" style="background-color: #72d826">
+      <h2 style="float: left; cursor: pointer">
+        <img
+          src="assets/dashboard/white_map.png"
+          style="padding-right: 11px; padding-bottom: 4px; margin-left: -19px"
+        />{{ store_address }}
+      </h2>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li>
+        <a style="cursor: pointer" (click)="product_list()">{{ store_name }}</a>
+      </li>
+      <li><a>Checkout</a></li>
+    </ul>
+  </div>
+  <div class="row productsec">
+    <div class="col-md-9 col-sm-9 col-xs-12">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="checkout">
+            <ul class="footer_address_list">
+              <li>
+                <div class="footer__icon" [ngClass]="{ pickup: ispickup === true }">
+                  <img src="assets/product/pickup.png" />
+                </div>
+                <div class="footer__content">
+                  <h3 style="cursor: pointer; padding-left: 15px" (click)="pickup()">Pick up</h3>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="checkout">
+            <ul class="footer_address_list">
+              <li>
+                <div class="footer__icon" [ngClass]="{ pickup: isPayment === true }">
+                  <img src="assets/product/payment.png" />
+                </div>
+                <div class="footer__content">
+                  <h3 style="cursor: pointer; padding-left: 15px">Payment</h3>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!isPayment">
+        <div>
+          <h4 class="mainheading">Order Pickup</h4>
+          <br />
+          <div class="radio" style="margin-left: -21px">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="1" checked class="radio_btn" (change)="radioChange($event)"
+                ><span style="font-size: 14px; font-weight: 600">Me ( {{ customer_name }} ) </span></mat-radio-button
+              ><br />
+              <p style="padding-left: 3.5vw">i'll pick up the order at the store</p>
+              <br />
+              <mat-radio-button value="2" class="radio_btn" (change)="radioChange($event)"
+                ><span style="font-size: 14px; font-weight: 600">Other</span></mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+          <p style="color: red" [hidden]="showorderpickup">Select any one order pickup option</p>
+        </div>
+        <div class="row pickperson" *ngIf="showpickperson">
+          <div class="col-md-4 mttop">
+            <!-- <mat-label>Enter Pick up person name</mat-label> -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput [(ngModel)]="person_name" placeholder="Pickup person" />
+            </mat-form-field>
+            <p style="color: red" [hidden]="valid_personname">Name is required</p>
+          </div>
+
+          <div class="col-md-4 mttop">
+            <!-- <mat-label>Enter Phone Number</mat-label> -->
+            <mat-form-field class="example-full-width" appearance="fill">
+              <input matInput type="number" maxlength="15" [(ngModel)]="person_phoneno" placeholder="Phone Number" />
+            </mat-form-field>
+            <p style="color: red" [hidden]="valid_phoneno">Phone number is required</p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="mainheading">Reserve a Pickup Time</h4>
+          <p>Select your prefer pickup time</p>
+          <div class="col-md-3 col-sm-3">
+            <mat-form-field appearance="fill">
+              <input matInput (dateChange)="EndDateChange($event)" [min]="minDate" readonly
+                [matDatepicker]="picker" placeholder="Choose a date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <p style="color: red" [hidden]="valid_pickupdate">Select pickup date</p>
+          </div>
+
+          <div class="col-sm-3" style="margin-left: 50px">
+            <input
+              [ngxTimepicker]="picker1"
+              [(ngModel)]="start_time"
+              name="start_time1"
+              [min]='time'
+              class="form-control time_input"
+              placeholder="Time* ( From )"
+              style="border-color: currentColor"
+               
+              (ngModelChange)="timeCheck('test')"
+            />
+            <ngx-material-timepicker-toggle
+              matSuffix
+              [for]="picker1"
+              class="time_toggle"
+            ></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker class="time_picker" #picker1></ngx-material-timepicker>
+            <p style="color: red" [hidden]="validpickup_starttime">Select pickup start time</p>
+          </div>
+
+          <div class="col-sm-3">
+            <input
+              [ngxTimepicker]="pickers"
+              [(ngModel)]="endtime"
+              name="end_time"
+              [min]='start_time'
+              class="form-control time_input"
+              placeholder="Time* ( To )"
+              style="border-color: currentColor"
+            />
+            <ngx-material-timepicker-toggle
+              matSuffix
+              [for]="pickers"
+              class="time_toggle"
+            ></ngx-material-timepicker-toggle>
+            <ngx-material-timepicker class="time_picker" #pickers></ngx-material-timepicker>
+            <p style="color: red" [hidden]="validpickup_endtime">Select pickup end time</p>
+            <p style="color: red" [hidden]="validpickup_time">End time should be greater than start time</p>
+          </div>
+        </div>
+        <br />
+        <!-- <p class="reserve_text">
+          Date & Time Disclaimer.Lorem is simply dummy text of the printing industry.Lorem is simply dummy text of the
+          printing industry.Lorem is simply dummy text of the printing industry.
+        </p> -->
+
+        <!-- <div class="row"> -->
+          <div class="address_details">
+            <h5>Pick up Address</h5>
+            <p class="margin-right: 5px;"><img src="assets/product/maps.png" /> {{ store_address }}</p>
+            <h5>Pick up Contact</h5>
+            <p><img class="margin-right: 5px;" src="assets/product/mail.png" /> {{ store_email }}</p>
+            <p><img class="margin-right: 5px;" src="assets/product/phone.png" /> {{ store_phoneno }}</p>
+            <button type="button" class="btn btn-default" (click)="checkout()">Submit</button>
+          </div>
+        <!-- </div> -->
+      </div>
+      <div *ngIf="isPayment">
+        <h2 style="padding-bottom: 25px">Payment Options</h2>
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="1" class="payment_radio" (change)="changePayment($event)"
+            >Pay on Delivery</mat-radio-button
+          >
+          <mat-radio-button value="2" class="payment_radio_paypal" (change)="changePayment($event)"
+            ><img
+              src="assets/product/paypal.png"
+              style="height: 39px; margin-left: -16px; object-fit: fill; width: 74px"
+            />Paypal</mat-radio-button
+          >
+        </mat-radio-group>
+        <p style="color: red" [hidden]="Show_paymentissue">Select any one payment option</p>
+        <div class="row">
+          <button type="button" class="btn btn-default payment_btn" (click)="makepayment()">Submit</button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-12">
+      <app-addcart></app-addcart>
+    </div>
+  </div>
+</div>

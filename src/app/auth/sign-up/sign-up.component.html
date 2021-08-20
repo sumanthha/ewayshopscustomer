@@ -1,0 +1,80 @@
+<div class="container-fluid login_btn_container">
+  <div class="row no-gutters">
+    <div class="col-md-12">
+      <div class="right_container" style="width: 30vw !important; position: relative; background-color: #ffffff">
+        <div class="right_content">
+          <img (click)="home()" src="assets/login/logo.png" class="color_logo w-100" alt="eWayShop-logo" />
+          <div class="login_form" id="sing_up">
+            <div class="reg">
+              <span class="reg_txt">Register</span>
+            </div>
+            <!-- <p>Welcome Back, Please Signup to your account</p> -->
+            <div class="form_errors">
+              <span *ngIf="submitted && f.email.errors?.required" class="error">Email is required</span>
+              <span *ngIf="submitted && f.email.errors?.email" class="error">Please enter the valid email address</span>
+              <span *ngIf="submitted && f.phoneno.errors?.required" class="error">PhoneNo is required</span>
+              <span *ngIf="submitted && f.phoneno.errors?.pattern" class="error">PhoneNo allow number only</span>
+              <span *ngIf="submitted && f.terms.errors?.required" class="error">Agree the terms and conditions</span>
+            </div>
+
+            <form class="login-form" [formGroup]="signup_form" (ngSubmit)="signup()">
+              <mat-form-field class="login-full-width" style="height: 58px !important">
+                <mat-label>Email Address</mat-label>
+                <input
+                  matInput
+                  value=""
+                  formControlName="email"
+                  style="margin-top: 7px;"
+                  [ngClass]="{ 'is-invalid': submitted && f.email.errors }"
+                />
+              </mat-form-field>
+              <mat-form-field class="login-full-width">
+                <mat-label>Phone Number</mat-label>
+                <div class="input-group-prepend">
+                  <div class="input-group-text">+1</div>
+                <input
+                  style="margin-top: 14px;"
+                  matInput
+                  value=""
+                  formControlName="phoneno"
+                  maxlength="15"
+                  (keypress)="OnlyNumbers($event)"
+                  [ngClass]="{ 'is-invalid': submitted && f.phoneno.errors }"
+                />
+              </div>
+              </mat-form-field>
+
+              <p class="footer_link">
+                <input
+                  type="checkbox"
+                  name="sendemail"
+                  formControlName="terms"
+                  [ngClass]="{ 'is-invalid': submitted && f.terms.errors }"
+                />
+                By signing up I agree to the
+              </p>
+              <div class="term_policy">
+                <a href="javascript:void(0);" class="forget-link" [routerLink]="['/termandconditions']" target="_blank">Terms and conditions</a>
+                & <a href="javascript:void(0);" class="forget-link" [routerLink]="['/privacy']" target="_blank"> Privacy policy</a>
+              </div>
+              <div class="">
+                <button type="button" (click)="signup()" class="login_btn">Register</button>
+                <p class="footer_link" style="color: #000000 !important; font-weight: 600; text-align: center">
+                  Already have an account?
+                  <a
+                    href="javascript:void(0);"
+                    [routerLink]="['/login']"
+                    class="Login-link"
+                    style="color: #81e739 !important; font-size: 16px !important"
+                    >Login</a
+                  ><br />
+                  <a class="register_name" [routerLink]="['/home']">Back To Home</a>
+                </p>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

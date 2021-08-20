@@ -1,0 +1,58 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>Profile</h2>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li><a>Payment Status</a></li>
+    </ul>
+  </div>
+
+  <div class="row productsec" style="padding-left: 7px; padding-right: 21px">
+    <div
+      class="col-md-12 col-sm-12 col-xs-12"
+      style="margin-top: 9px; margin-left: 9px; background: #f2f2f2; margin-bottom: 50px"
+    >
+      <div>
+        <div class="row">
+          <p style="text-align: center; font-size: 40px; font-weight: 600; padding-left: 33%; padding-top: 3%">
+            Transaction Failed!
+          </p>
+        </div>
+        <div class="profile_details">
+          <img style="padding-left: 45%; padding-bottom: 2%" src="assets/product/payment_failure.png" />
+          <p style="text-align: center">Your Transaction request has been declined</p>
+          <!-- <table class="table payment_table table-striped">
+            <tr>
+              <td>Transaction ID</td>
+              <td>:</td>
+              <td>{{ transaction_id }}</td>
+            </tr>
+            <tr>
+              <td>Transaction Date</td>
+              <td>:</td>
+              <td>{{ payment_date | date: 'MM-dd-yyyy' }}</td>
+            </tr>
+            <tr>
+              <td>Name</td>
+              <td>:</td>
+              <td>{{ payer_name }}</td>
+            </tr>
+            <tr>
+              <td>Email Address</td>
+              <td>:</td>
+              <td>{{ email_address }}</td>
+            </tr>
+            <tr>
+              <td>Price</td>
+              <td>:</td>
+              <td>${{ total_amount }}</td>
+            </tr>
+          </table> -->
+          <button class="continue_shop" (click)="continue_shopping()">Continue shopping</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

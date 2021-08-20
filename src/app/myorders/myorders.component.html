@@ -1,0 +1,389 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>My Orders</h2>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <!-- <li *ngIf="branch_name != null">
+        <a href="#">{{ branch_name }}</a>
+      </li> -->
+      <li><a (click)="myAccount()" style="cursor: pointer">My Account</a></li>
+      <li><a>My Orders</a></li>
+    </ul>
+  </div>
+
+  <div class="row productsec">
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <h2 style="font-size: 25px">My Account</h2>
+      <div class="category_list">
+        <p [routerLink]="['/profile']" routerLinkActive="active">Profile</p>
+        <br />
+        <p [routerLink]="['/mycart']" routerLinkActive="active">My Cart</p>
+        <br />
+        <p [routerLink]="['/myorders']" routerLinkActive="active">My Orders</p>
+        <br />
+        <p [routerLink]="['/wishlist']" routerLinkActive="active">My Wishlist</p>
+        <br />
+        <p [routerLink]="['/faq']" routerLinkActive="active">FAQ</p>
+        <br />
+        <p style="margin-bottom: 2vw !important" (click)="logout()">Logout</p>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-10 col-xs-10" *ngIf="getmyOrdersList.length != 0" style="margin-top: 4px">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 style="margin-bottom: 15px">My Orders ({{ getmyOrdersList.length }} Orders)</h2>
+          <div class="product_table">
+            <div class="example-container mat-elevation-z8" style="width: 1000px!important;">
+              <mat-table #table [dataSource]="MycartTable" multiTemplateDataRows matSort #sort="matSort">
+                <!--- Note that these columns can be defined in any order.
+                         The actual rendered columns are set as a property on the row definition" -->
+
+                <!-- Position Column -->
+                <ng-container matColumnDef="sno">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Sno. </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <span class="order__name">{{ element.sno }} </span></mat-cell
+                  >
+                </ng-container>
+
+                <ng-container matColumnDef="pickup_time">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>
+                    Prefer pickup time <br />Date - Time
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let element" >
+                    <span class="order__name"
+                      >{{ element.prefer_pickuptime | date: 'MM-dd-yyyy' }} <br />{{ element.prefer_start_time }} -
+                      {{ element.prefer_end_time }}
+                    </span></mat-cell
+                  >
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="status">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Status </mat-header-cell>
+                  <mat-cell *matCellDef="let element" style="text-align: center">
+                    <img
+                      src="assets/product/Ready for Pickup.png"
+                      matTooltip="Ready for pickup"
+                      *ngIf="element.order_status == 'ready for pickup'"
+                    />
+                    <img src="assets/product/New.png" matTooltip="New" *ngIf="element.order_status == 'new'" />
+                    <img
+                      src="assets/product/Rejected.png"
+                      matTooltip="Rejected"
+                      *ngIf="element.order_status == 'rejected'"
+                    />
+                    <img
+                      src="assets/product/Accepted.png"
+                      matTooltip="Accepted"
+                      *ngIf="element.order_status == 'accepted'"
+                    />
+                    <img
+                      src="assets/product/Processing.png"
+                      matTooltip="Processing"
+                      *ngIf="element.order_status == 'processing'"
+                    />
+                    <img
+                      src="assets/product/Completed.png"
+                      matTooltip="Completed"
+                      *ngIf="element.order_status == 'completed'"
+                    />
+                    <img
+                      src="assets/product/Incomplete.png"
+                      matTooltip="Incompleted"
+                      *ngIf="element.order_status == 'incomplete'"
+                    />
+                    <img
+                      src="assets/product/Refund Issued.png"
+                      matTooltip="Refund issues"
+                      *ngIf="element.order_status == 'refund issued'"
+                    />
+                    <img
+                    src="assets/product/pending.png"
+                    matTooltip="Pending"
+                    *ngIf="element.order_status == 'pending'"
+                  />
+                  </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="price">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> $ Price </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <span class="order__name">$ {{ element.price }}</span>
+                  </mat-cell>
+                </ng-container>
+                <!-- <ng-container matColumnDef="customer_name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Customer Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <span class="order__name">{{ element.customer_name }}</span>
+                  </mat-cell>
+                </ng-container> -->
+                <ng-container matColumnDef="shop_name">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Shop Name </mat-header-cell>
+                  <mat-cell *matCellDef="let element">
+                    <span class="order__name">{{ element.shop_name }}</span>
+                  </mat-cell>
+                </ng-container>
+
+                <!-- Weight Column -->
+                <ng-container matColumnDef="order_date">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Order Date </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    ><span class="order__name"> {{ element.order_date | date: 'MM-dd-yyyy' }} </span></mat-cell
+                  >
+                </ng-container>
+                <ng-container matColumnDef="order">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Order ID </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    ><span
+                      class="order__name"
+                      style="color: 'red'; cursor: pointer"
+                      (click)="modalOpen(element.order_status, element.order_id)"
+                    >
+                      {{ element.order_id }}
+                    </span></mat-cell
+                  >
+                </ng-container>
+                <ng-container matColumnDef="action">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header> Action </mat-header-cell>
+                  <mat-cell *matCellDef="let element"
+                    ><mat-icon  matTooltip="Report an issue" style="cursor: pointer;" (click)="modalOpen_feedback(element.order_id)">report</mat-icon></mat-cell
+                  >
+                </ng-container>
+
+                <!-- Expanded Content Column - The detail row is made up of this one column -->
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row *matRowDef="let row; columns: displayedColumns" matRipple class="element-row"></mat-row>
+              </mat-table>
+            </div>
+            <mat-paginator style="width: 1000px!important;" #paginator [pageSizeOptions]="[10, 15, 20]" showFirstLastButtons></mat-paginator>
+          </div>
+          <!-- <div class="row" style="float:right">
+             <button class="continue_shop">Continue shopping</button>
+          </div> -->
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-10 col-sm-10 col-xs-10" *ngIf="getmyOrdersList.length == 0" style="margin-top: 4px">
+      <div class="row">
+        <div class="col-md-12">
+          <h2 style="margin-bottom: 15px">My Orders ({{ getmyOrdersList.length }} Orders)</h2>
+          <div style="padding: 0px 325px; height: 18vw; border-radius: 20px">
+            <img
+              style="width: 125px; height: 125px; margin-top: 35px; margin-left: -14px"
+              src="assets/product/cart_empty.png"
+            />
+            <h2 style="margin-top: 16px; font-weight: 800">No Order</h2>
+            <p style="margin-left: -107px; font-size: 16px">You have no Order in your myorder. Start shopping!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="backdrop " [ngStyle]="{ display: display }"></div>
+<div
+  class="modal"
+  [ngStyle]="{ display: display }"
+  id="menu-addon"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="menuaddon"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-window" role="document">
+    <div class="modal-content addon-wraapper">
+      <div class="modal-header" style="display: block !important">
+        <h2 class="modal-title head">Order Summary</h2>
+        <br />
+
+        <button type="button" class="close" (click)="modalClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body ">
+        <div class="row">
+          <div class="col-md-8 col-sm-8 col-xs-12">
+            <div class="order_status_div">
+              <div>
+                <span class="order_id">Order ID:{{ singleorder_resp?.order_id }}</span>
+              </div>
+              <div >
+                <span class="order_id">Ordered On: {{ singleorder_resp?.order_date | date: 'MM-dd-yyyy' }}</span>
+              </div>
+              <div class="orderStatus_div" *ngIf="seperate_orderStatus == 'new'">
+                <div class="icon"><img src="assets/product/New.png" /><span>New</span></div>
+              </div>
+
+              <div class="orderStatusRejected_div" *ngIf="seperate_orderStatus == 'accepted'">
+                <div class="icon"><img src="assets/product/New.png" /><span>New</span></div>
+                <div class="icon"><img src="assets/product/Accepted.png" /><span>Accepted</span></div>
+              </div>
+              <div class="orderStatusProcessiong_div" *ngIf="seperate_orderStatus == 'processing'">
+                <div class="icon"><img src="assets/product/New.png" /><span>New</span></div>
+                <div class="icon"><img src="assets/product/Accepted.png" /><span>Accepted</span></div>
+                <div class="icon"><img src="assets/product/Processing.png" /><span>Processing</span></div>
+              </div>
+              <div class="orderStatus_div" *ngIf="seperate_orderStatus == 'ready for pickup'">
+                <div class="icon"><img src="assets/product/New.png" /><span>New</span></div>
+                <div class="icon"><img src="assets/product/Accepted.png" /><span>Accepted</span></div>
+                <div class="icon"><img src="assets/product/Processing.png" /><span>Processing</span></div>
+                <div class="icon"><img src="assets/product/Ready for Pickup.png" /><span>Ready for pickup</span></div>
+              </div>
+
+              <div class="orderStatusCompleted_div" *ngIf="seperate_orderStatus == 'completed'">
+                <div class="icon"><img src="assets/product/New.png" /><span>New</span></div>
+                <div class="icon"><img src="assets/product/Accepted.png" /><span>Accepted</span></div>
+                <div class="icon"><img src="assets/product/Processing.png" /><span>Processing</span></div>
+                <div class="icon"><img src="assets/product/Ready for Pickup.png" /><span>Ready for pickup</span></div>
+                <div class="icon"><img src="assets/product/Completed.png" /><span>Completed</span></div>
+              </div>
+              <div class="orderStatusRejected_div" *ngIf="seperate_orderStatus == 'rejected'">
+                <div class="icon"><img src="assets/product/New.png" /><span>New</span></div>
+                <div class="icon"><img src="assets/product/Rejected.png" /><span>Rejected</span></div>
+              </div>
+
+              <div class="orderStatus_div" *ngIf="seperate_orderStatus == 'refund issued'">
+                <div class="icon"><img src="assets/product/Refund Issued.png" /><span>Refund issue</span></div>
+              </div>
+              <div class="orderStatus_div" *ngIf="seperate_orderStatus == 'incomplete'">
+                <div class="icon"><img src="assets/product/Incomplete.png" /><span>Incomplete</span></div>
+              </div>
+            </div>
+            <div  *ngIf="singleorder_resp?.reason!=null">
+              <span class="order_id">Reason: {{ singleorder_resp?.reason}}</span>
+            </div>
+            <div class="row">
+              <button class="price_btn">$ {{ singleorder_resp?.amount }}</button>
+              <span class="payment_type"
+                >Payment Type: <span style="opacity: 0.6">{{ singleorder_resp?.payment_type }}</span></span
+              >
+            </div>
+            <div class="pickup_details">
+              <h2>Pickup details</h2>
+              <span class="pickup_key">Pick up Person:</span>
+              <span class="pickup_value">{{ singleorder_resp?.pickup_person_name }}</span
+              ><br />
+              <span class="pickup_key">Prefer Pickup Date & Time:</span>
+              <span class="pickup_value">
+                {{ singleorder_resp?.customer_from_date | date: 'MM-dd-yyyy' }} ({{
+                  singleorder_resp?.customer_start_time
+                }}
+                - {{ singleorder_resp?.customer_end_time }} )</span
+              ><br />
+              <span class="pickup_key" *ngIf="singleorder_resp?.est_from_date!=null">Estimated pickup Date & Time:</span>
+              <span class="pickup_value" *ngIf="singleorder_resp?.est_from_date!=null">
+                {{ singleorder_resp?.est_from_date | date: 'MM-dd-yyyy' }} ({{ singleorder_resp?.est_start_time }} -
+                {{ singleorder_resp?.est_end_time }} )</span
+              ><br />
+            </div>
+            <div class="shop_details">
+              <h2>Shop details</h2>
+              <span class="pickup_key">Shop address: </span>
+              <span class="pickup_value"> {{ singleorder_resp?.pickup_address }}</span
+              ><br />
+              <span class="pickup_key">Phone number:</span>
+              <span class="pickup_value"> {{ singleorder_resp?.pickup_person_phone }}</span
+              ><br />
+              <span class="pickup_key">Email: </span>
+              <span class="pickup_value">{{ singleorder_resp?.pickup_email }}</span>
+            </div>
+            <div class="shop_details" *ngIf="singleorder_resp?.payment_details.length!=0">
+              <h2>Payment details</h2>
+              <span class="pickup_key">Customer Name: </span>
+              <span class="pickup_value"> {{ singleorder_resp?.payment_details[0].customer_name }}</span
+              ><br />
+              <span class="pickup_key">Email:</span>
+              <span class="pickup_value"> {{ singleorder_resp?.payment_details[0].customer_email  }}</span
+              ><br />
+              <span class="pickup_key" *ngIf="singleorder_resp?.payment_details[0].tracking_id !=null">Tracking Id: </span>
+              <span class="pickup_value" *ngIf="singleorder_resp?.payment_details[0].tracking_id !=null">{{ singleorder_resp?.payment_details[0].tracking_id }}</span>
+              <br/>
+              <span class="pickup_key">Payment Status: </span>
+              <span class="pickup_value">{{ singleorder_resp?.payment_details[0].payment_status }}</span>
+              <br/>
+              <span class="pickup_key" *ngIf="singleorder_resp?.payment_details[0].payment_time !=null">Payment Date: </span>
+              <span class="pickup_value" *ngIf="singleorder_resp?.payment_details[0].payment_time !=null">{{ singleorder_resp?.payment_details[0].payment_time | date:'MM-dd-yyyy' }}</span>
+            </div>
+          </div>
+          <div class="col-md-4 col-sm-4 col-xs-12 order__popup" style="overflow-y: scroll">
+            <div class="item_info">
+              <h3 style="font-weight: 700" *ngIf="singleorder_resp?.orderlist.length>0">Item List</h3>
+              <div class="row productqty" *ngFor="let item_list of singleorder_resp?.orderlist">
+                <div class="col-md-3 col-sm-3 col-xs-3 item_image">
+                  <img
+                    *ngIf="item_list.item.item_image != null"
+                    src="{{ item_list.item.item_image }}"
+                    class="img-responsive cart_img"
+                  />
+                  <img
+                    *ngIf="item_list.item.item_image == null"
+                    src="assets/product/noimg.png"
+                    class="img-responsive item_image"
+                  />
+                </div>
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                  <div class="row">
+                    <div class="col-md-7 col-xs-7">
+                      <div class="qtydetails">
+                        <h4>{{ item_list.item.item_name }}</h4>
+                      </div>
+                    </div>
+                    <div class="col-md-5 col-sm-5 col-xs-5">
+                      <h5>$ {{ item_list.price }}</h5>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-md-5 col-xs-5">
+                      <div class="qtydetails">
+                        <p style="float: left">Qty: {{ item_list.quantity }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="backdrop" [ngStyle]="{ display: display1 }"></div>
+<div class="modal" [ngStyle]="{ display: display1 }" id="menu-addon">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content addon-wraapper">
+            <div class="modal-header">
+                <h4 class="modal-title head" style="font-size: 21px!important;">Report Feedback</h4>
+                <br />
+                <div class="order_data">
+                      
+                
+                </div>
+                <button type="button" class="close_feedback_btn" (click)="modalClose()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="radio" style="margin-left: -10px;">
+                  <textarea autosize class="my-textarea" placeholder="Enter your order feedback here" class="message_box"  [(ngModel)]="feedback">
+                  
+                  </textarea>
+                  </div>
+                  <p style="color: red;" [hidden]="showfeedback">Enter Order feedback</p>
+                  <div class="update_payment">
+                  <button class="payment_update_btn" style="cursor: pointer;" (click)="order_feedback()">Update</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,85 @@
+<footer id="footer">
+  <div class="container-fluid footerbanner">
+    <div class="container">
+      <div class="row subscription">
+        <div class="col-md-3 col-sm-4 col-xs-12">
+          <h2>
+            Reach Us <br />
+            <span style="font-size: 15px">Send us a message</span>
+          </h2>
+        </div>
+        <div class="col-md-7 col-sm-8 col-xs-12">
+          <div class="subscribe">
+            <input type="email" placeholder="Full name" /><br />
+            <input type="email" placeholder="Enter email address or phone number" /><br />
+            <textarea
+              placeholder="Enter your message"
+              id="w3review"
+              name="w3review"
+              rows="4"
+              cols="50"
+              class="message_box"
+              style="font-size: 13px; width: 34vw; border-radius: 10px;border: none;" >
+             
+              </textarea
+            ><br />
+            <button type="button" class="btn btn-default">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid links">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-3">
+          <div class="quicklinks">
+            <h4>About Us</h4>
+            <ul>
+              <li><a href="#">Our history</a></li>
+              <!-- <li><a href="#">Locations</a></li> -->
+              <li><a href="#">Join our team</a></li>
+              <li><a [routerLink]="['/contact_us']">Contact us</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="quicklinks">
+            <h4>Help</h4>
+            <ul>
+              <li><a href="#">How to use eWayShops</a></li>
+              <li><a [routerLink]="['/profile']">My Account</a></li>
+              <li><a [routerLink]="['/faq']">FAQ's</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="quicklinks">
+            <h4>Conditions</h4>
+            <ul>
+              <li><a [routerLink]="['/privacy']">Privacy Policy</a></li>
+              <li><a [routerLink]="['/termandconditions']">Terms and Conditions</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="quicklinks">
+            <h4>Connect with us</h4>
+            <ul class="list-inline">
+              <li>
+                <a href="#"><img src="assets/dashboard/facebook.png" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="assets/dashboard/ionic.png" /></a>
+              </li>
+              <li>
+                <a href="#"><img src="assets/dashboard/twitter.png" /></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+<div class="footer_bar"><p class="copyrights">&#169; copyrights 2021.eWayShops</p></div>

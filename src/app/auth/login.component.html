@@ -1,0 +1,53 @@
+<div class="container-fluid login_btn_container">
+  <div class="row no-gutters">
+    <div class="col-md-12">
+      <div class="right_container" style="height: 85vh; position: relative; background-color: #ffffff">
+        <div class="right_content">
+          <img (click)="home()" src="assets/login/logo.png" class="color_logo w-100" alt="eWayShop-logo" />
+          <div class="login_form">
+            <div class="login_reg">
+              <a>Login</a>
+            </div>
+
+            <div class="form_errors">
+              <span *ngIf="submitted && f.email.errors?.required" class="error">Email is required</span>
+              <span *ngIf="submitted && f.email.errors?.email" class="error">Please enter the valid email address</span>
+              <span *ngIf="submitted && f.password.errors?.required" class="error">Password is required</span>
+            </div>
+            <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+              <mat-form-field class="login-full-width">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+              </mat-form-field>
+
+              <mat-form-field class="login-full-width password_field">
+                <mat-label>Password</mat-label>
+                <input
+                  matInput
+                  [type]="show_button ? 'text' : 'password'"
+                  formControlName="password"
+                  [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+                  matInput
+                  showHideInput
+                />
+                <div class="show_password" (click)="showPass()">
+                  <mat-icon [ngClass]="show ? 'visibility' : 'visibility_off'" matSuffix class="secondary-text">
+                  </mat-icon>
+                </div>
+              </mat-form-field>
+              <a href="javascript:void(0);" class="forget-link_new" [routerLink]="['/forgot']">Forgot password ?</a>
+              <div class="">
+                <button type="button" (click)="login()" class="login_btn">Login</button>
+                <!-- <button type="button" class="sign_btn" [routerLink]="['/signup']">Signup</button> -->
+              </div>
+              <div class="account_info">
+                <a>Don't have an account ?</a> <a class="register_name" [routerLink]="['/signup']">Register</a><br />
+                <a class="register_name" [routerLink]="['/home']">Back To Home</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

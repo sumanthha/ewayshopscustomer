@@ -1,0 +1,139 @@
+<div class="cart-main-wrapper h-100 text-center">
+  <ng-container *ngIf="!cartshow">
+    <div class="offer-main cf">
+      <h3 class="cart_txt">Your Cart</h3>
+      <p class="cart_itemtxt">0 Items</p>
+      <div style="height: 20vw; background-color: #f7f9fc; width: 19vw; border-radius: 20px; margin-bottom: 15px">
+        <img style="width: 120px; height: 120px; margin-top: 35px" src="assets/product/e3.png" />
+        <h2 style="margin-top: 16px">Your cart is empty</h2>
+        <p>add items you want to shop</p>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="cartshow">
+    <div id="Jcart" class="rport-cart sticky-top cart_div">
+      <h3 class="cart_txt">Your Cart <mat-icon class="clear_icon" (click)="clearCart_items()">clear</mat-icon></h3>
+      <p class="cart_itemtxt">{{ View_items.length }} Items</p>
+      <div class="row productqty" *ngFor="let item of View_items">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+          <img *ngIf="item.item.item_image != null" src="{{ item.item.item_image }}" class="img-responsive cart_img" />
+          <img *ngIf="item.item.item_image == null" src="assets/product/noimg.png" class="img-responsive item_image" />
+        </div>
+        <div class="col-md-10 col-sm-10 col-xs-10">
+          <div class="row">
+            <div class="col-md-8 col-xs-8">
+              <div class="qtydetails">
+                <h4>{{ item.item.item_name }}</h4>
+              </div>
+            </div>
+            <div class="col-md-4 col-sm-4 col-xs-4">
+              <h5>${{ item.total_price }}.00</h5>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-5 col-xs-5">
+              <div class="qtydetails">
+                <p style="float: left">Qty:{{ item.quantity }}</p>
+              </div>
+            </div>
+            <div class="col-md-7 col-sm-7 col-xs-7 quantity">
+              <div class="quant_div">
+                <div class="">
+                  <button
+                    type="button"
+                    value="-"
+                    class="minus"
+                    style="cursor: pointer"
+                    (click)="incfn1('minus', item.quantity, item.item.id, item.item.item_name)"
+                  >
+                    -
+                  </button>
+                </div>
+                <div class="">
+                  <input
+                    step="1"
+                    value="{{ item.quantity }}"
+                    title="Qty"
+                    size="4"
+                    placeholder=""
+                    inputmode="numeric"
+                    class="input-text qty text"
+                  />
+                </div>
+                <div class="">
+                  <button
+                    type="button"
+                    value="+"
+                    class="plus"
+                    style="cursor: pointer"
+                    (click)="incfn1('plus', item.quantity, item.item.id, item.item.item_name)"
+                  >
+                    +
+                  </button>
+                </div>
+              </div>
+              <div class="col-md-2 col-sm-2 col-xs-2">
+                <ul class="list-inline">
+                  <li>
+                    <a (click)="delete_item(item.item.id, item.item.item_name)" style="cursor: pointer"
+                      ><img class="delete_img" src="assets/dashboard/delete.png"
+                    /></a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row amount_div">
+      <!-- <div class="cart_totals"> -->
+      <div class="extra-charge col-md-6 price_div">
+        <span>Subtotal</span>
+      </div>
+      <div class="col-md-6 price_value">
+        <span class="right"
+          ><span>$</span> <span>{{ total_cal.sub_total | number: '1.2-2' }}</span></span
+        >
+      </div>
+    </div>
+    <div class="row amount_div">
+      <div class="extra-charge col-md-6 price_div">
+        <span>Tax</span>
+      </div>
+      <div class="col-md-6 price_value">
+        <span class="right"
+          ><span>$</span> <span>{{ total_cal.total_tax | number: '1.2-2' }}</span></span
+        >
+      </div>
+    </div>
+    <div class="row amount_div">
+      <div class="extra-charge col-md-6 price_div">
+        <span>Total (Tax incl.)</span>
+      </div>
+      <div class="col-md-6 price_value">
+        <span class="right"
+          ><span>$</span> <span>{{ total_cal.total_amount | number: '1.2-2' }}</span></span
+        >
+      </div>
+    </div>
+    <div class="row">
+      <div class="form-check form-check-inline col-md-8 store_pickup">
+        <mat-radio-group aria-label="Select an option">
+          <mat-radio-button value="0" [checked]="true" name="radio" [(ngModel)]="store_pickup" class="radio_btn"
+            ><span style="font-size: 14px; font-weight: 600">Store Pick up</span></mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+    </div>
+    <div class="row" style="margin-bottom: 11px">
+      <button class="checkout_btn" (click)="checkout()" *ngIf="isShow_checkbtn">
+        ${{ total_cal.total_amount | number: '1.2-2'}} Checkout <mat-icon style="padding-left: 15px">arrow_right_alt</mat-icon>
+      </button>
+      <button class="continue_btn" (click)="continue_shopping()" *ngIf="!isShow_checkbtn" (click)="home()">
+        Continue Shopping
+      </button>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,165 @@
+body {
+  background: #fff;
+}
+
+.location h2 {
+  background-color: #72d826;
+  color: #fff;
+  padding: 20px 30px;
+}
+ul.breadcrumb {
+  padding: 8px 16px;
+  list-style: none;
+  background-color: #fff;
+  margin: 0 0 30px;
+  font-weight: 600;
+}
+.payment_table {
+  border: 0px solid black;
+  border-collapse: collapse;
+  width: 40%;
+  margin: auto;
+}
+.payment_table td:first-child {
+  width: 35%;
+  font-family: "gothambold";
+}
+.payment_table td:nth-child(2) {
+  width: 5%;
+}
+
+ul.breadcrumb li {
+  display: inline;
+}
+
+ul.breadcrumb li + li:before {
+  padding: 8px;
+  color: black;
+  content: ">";
+}
+
+ul.breadcrumb li a {
+  color: #000;
+  font-size: 16px;
+}
+.payment_table,
+th,
+td {
+  border: 0px solid black;
+  border-collapse: collapse;
+  font-size: 15px;
+  font-weight: 900;
+  margin-bottom: 25px;
+  margin-left: 33%;
+}
+.profile_details span {
+  font-size: 18px;
+  font-weight: 600;
+  // opacity: 0.5;
+}
+.profile_details p {
+  opacity: 0.6;
+  font-size: 16px;
+  font-weight: 500;
+  padding-bottom: 1.5vw;
+}
+.profile_details {
+  margin-top: 2vw;
+}
+.editprofile_txt {
+  font-size: 18px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.editprofile_input {
+  padding-left: 6vw;
+  font-size: 15px;
+}
+.mat-form-field {
+  width: 19vw !important;
+}
+.update_btn {
+  background-color: #72d826;
+  width: 13vw;
+  padding: 0px;
+  height: 40px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 2vw;
+}
+.cancel_btn {
+  background-color: black;
+  width: 13vw;
+  padding: 0px;
+  height: 40px;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+  margin-bottom: 2vw;
+}
+.upload_icon {
+  margin-top: -5vw;
+  margin-left: 17vw;
+}
+.image_input {
+  width: 262px;
+  white-space: nowrap;
+  overflow: hidden !important;
+  text-overflow: ellipsis;
+  border-left: 0px;
+  border-right: 0px;
+  border-top: 0px;
+  border-bottom: 1px solid;
+  font-size: 16px;
+  margin-top: 1vw;
+}
+.editprofile_input1 {
+  font-size: 15px;
+}
+P {
+  font-size: 16px;
+  font-weight: 500;
+  margin-bottom: -5px;
+}
+/* responsive css below */
+
+.category_list {
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: 2vw;
+}
+.category_list p {
+  //margin-bottom: 1vw;
+}
+.category_list p:hover {
+  color: #72d826;
+}
+.category_list p:active {
+  background-color: #72d826;
+  color: white;
+  padding: 12px;
+}
+.category_list p.active {
+  background-color: #72d826;
+  color: white;
+  padding: 12px;
+}
+.continue_shop {
+  float: none;
+  background-color: #72d826;
+  color: white;
+  padding: 10px;
+  height: 45px;
+  width: 17vw;
+  border-radius: 9px;
+  font-size: 16px;
+  border: none;
+  margin-right: 7.3vw;
+  margin-top: 12px;
+  margin-left: 36%;
+  margin-bottom: 21px;
+  cursor: pointer;
+}

@@ -1,0 +1,187 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>
+        <img
+          src="assets/dashboard/white_map.png"
+          style="padding-right: 11px; padding-bottom: 4px; margin-left: -19px"
+        />{{ branch_list?.branch_address }}
+      </h2>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <li>
+        <a (click)="product_list()" style="cursor: pointer">{{ branch_list?.branch_name }}</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="row productsec" #target>
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <h3 *ngIf="category.length > 0">Category</h3>
+      <div class="category_list" *ngFor="let item of category">
+        <span (click)="categoty_item(item)">{{ item }}</span>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-6 col-xs-12">
+      <div class="row">
+        <div
+          class="col-md-3 col-sm-6 col-xs-6"
+          *ngFor="
+            let item of item_list | paginate: { itemsPerPage: itemsPerPage, currentPage: page, totalItems: totalItems }
+          "
+        >
+          <div class="productcat">
+            <img
+              *ngIf="item.item.item_image != null"
+              src="{{ item.item.item_image }}"
+              class="img-responsive item_image"
+            />
+            <img
+              *ngIf="item.item.item_image == null"
+              src="assets/product/noimg.png"
+              class="img-responsive item_image"
+            />
+
+            <h5 style="height: 20px; margin-bottom: 21px">{{ item.item.item_name }}</h5>
+            <p *ngIf="item.item_selling_price != 0.0">
+              <del>$ {{ item.item_price }}</del>
+            </p>
+            <p *ngIf="item.item_selling_price == 0.0"><br /></p>
+            <div class="row">
+              <div class="col-md-3 col-sm-3 col-xs-3">
+                <h4>Price</h4>
+              </div>
+              <div class="col-md-9 col-sm-9 col-xs-9">
+                <h5 class="pricemax" *ngIf="item.item_selling_price != 0.0">$ {{ item.item_selling_price }}</h5>
+                <h5 class="pricemax" *ngIf="item.item_selling_price == 0.0">$ {{ item.item_price }}</h5>
+              </div>
+            </div>
+            <div class="row quantity" *ngIf="item.quantity == 0">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <button class="cart_btn" (click)="addtocart(item.item.id, item.item.item_name)">Add to Cart</button>
+              </div>
+            </div>
+            <div class="row quantity" *ngIf="item.quantity != 0">
+              <div class="col-md-3 col-sm-3 col-xs-3">
+                <button
+                  type="button"
+                  value="-"
+                  class="minus"
+                  style="cursor: pointer"
+                  (click)="incfn1('minus', item.quantity, item.item.id, item.item.item_name)"
+                >
+                  -
+                </button>
+              </div>
+              <div class="col-md-6 col-sm-6 col-xs-6">
+                <input
+                  step="1"
+                  min="0"
+                  max=""
+                  value="{{ item.quantity }} in Cart"
+                  title="Qty"
+                  size="4"
+                  placeholder=""
+                  inputmode="numeric"
+                  class="input-text qty text"
+                />
+              </div>
+              <div class="col-md-3 col-sm-3 col-xs-3">
+                <button
+                  type="button"
+                  value="+"
+                  class="plus"
+                  style="cursor: pointer"
+                  (click)="incfn1('plus', item.quantity, item.item.id, item.item.item_name)"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="item_list.length <= 0">
+          <p style="padding: 12vw; font-weight: 700; font-size: 20px">No Items available</p>
+        </div>
+      </div>
+      <div class="row" *ngIf="item_list.length > 0">
+        <pagination-controls
+          (pageChange)="gty((page = $event))"
+          (pageChange)="scl(target)"
+          class="float-right pagination_stle"
+        ></pagination-controls>
+      </div>
+    </div>
+    <div class="col-md-3 col-sm-4 col-xs-12">
+      <app-addcart></app-addcart>
+    </div>
+  </div>
+</div>
+<div class="backdrop" [ngStyle]="{ display: display }"></div>
+<div
+  class="modal"
+  [ngStyle]="{ display: display }"
+  id="menu-addon"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="menuaddon"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content addon-wraapper">
+      <img
+        src="assets/login/logo.png"
+        class="color_logo"
+        alt="eWayShop-logo"
+        style="height: 68px; width: 172px !important; object-fit: cover; margin-left: 44px; margin-bottom: 22px"
+      />
+      <div class="modal-header" style="display: block !important">
+        <h2 class="modal-title head">Login</h2>
+        <br />
+
+        <button type="button" class="close" (click)="modalClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form_errors">
+          <span *ngIf="submitted && f.email.errors?.required" class="error">Email is required</span>
+          <span *ngIf="submitted && f.email.errors?.email" class="error">Please enter the valid email address</span>
+          <span *ngIf="submitted && f.password.errors?.required" class="error">Password is required</span>
+        </div>
+
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+          <mat-form-field class="login-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+          </mat-form-field>
+
+          <mat-form-field class="login-full-width password_field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="show_button ? 'text' : 'password'"
+              formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              matInput
+              showHideInput
+            />
+            <div class="show_password" (click)="showPass()">
+              <mat-icon [ngClass]="show ? 'visibility' : 'visibility_off'" matSuffix class="secondary-text"> </mat-icon>
+            </div>
+          </mat-form-field>
+
+          <div class="">
+            <button type="submit" (click)="login()" class="login_btn">Login</button>
+          </div>
+          <div class="account_info">
+            <a>Don't have an account ?</a>
+            <a class="register_name" [routerLink]="['/signup']"><span> Register</span></a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

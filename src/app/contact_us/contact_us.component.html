@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>Profile</h2>
+    </div>
+    <ul class="breadcrumb">
+      <li *ngIf="branch_name != null"><a href="#">Home</a></li>
+      <li *ngIf="branch_name != null">
+        <a href="#">{{ branch_name }}</a>
+      </li>
+      <li><a>My Account</a></li>
+      <li><a>Profile</a></li>
+    </ul>
+  </div>
+
+  <div class="row productsec">
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <h2 style="font-size: 25px">My Account</h2>
+      <div class="category_list">
+        <p [routerLink]="['/profile']" routerLinkActive="active">Profile</p>
+        <br />
+        <p [routerLink]="['/mycart']" routerLinkActive="active">My Cart</p>
+        <br />
+        <p [routerLink]="['/myorders']" routerLinkActive="active">My Orders</p>
+        <br />
+        <p [routerLink]="['/wishlist']" routerLinkActive="active">My Wishlist</p>
+        <br />
+        <p [routerLink]="['/faq']" routerLinkActive="active">FAQ</p>
+        <br />
+        <p style="margin-bottom: 2vw !important" (click)="logout()">Logout</p>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-6 col-xs-12" style="margin-top: 9px; margin-left: 9px">
+      <div class="row">
+        <h1 style="padding-left: 12px; margin-top: -7px">Contact Us</h1>
+      </div>
+      <div class="profile_details">
+        <span>Email Address</span>
+        <p>
+          To reach our customer service team please email us at:
+          <span style="color: #72d826 !important">customerservice@ewayshops.com</span>
+        </p>
+        <span>Address</span><br />
+        <span style="font-size: 16px">eWayshops Grocery Supplies Ltd. </span>
+        <p>216 Park Street,</p>
+        <p>San Jose,</p>
+        <p>California 95110.</p>
+        <span>Phone Number</span>
+        <p>925-415-1857</p>
+        <ul class="list-inline">
+          <li>
+            <a href="#"><img src="assets/dashboard/facebook.png" /></a>
+          </li>
+          <li>
+            <a href="#"><img src="assets/dashboard/twitter.png" /></a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>Wishlist</h2>
+    </div>
+    <ul class="breadcrumb">
+      <li><a href="#">Home</a></li>
+      <!-- <li *ngIf="branch_name != null">
+        <a href="#">{{ branch_name }}</a>
+      </li> -->
+      <li><a (click)="myAccount()" style="cursor: pointer">My Account</a></li>
+      <li><a>Wishlist</a></li>
+    </ul>
+  </div>
+
+  <div class="row productsec">
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <h2 style="font-size: 25px">My Account</h2>
+      <div class="category_list">
+        <p [routerLink]="['/profile']" routerLinkActive="active">Profile</p>
+        <br />
+        <p [routerLink]="['/mycart']" routerLinkActive="active">My Cart</p>
+        <br />
+        <p [routerLink]="['/myorders']" routerLinkActive="active">My Orders</p>
+        <br />
+        <p [routerLink]="['/wishlist']" routerLinkActive="active">My Wishlist</p>
+        <br />
+        <p [routerLink]="['/faq']" routerLinkActive="active">FAQ</p>
+        <br />
+        <p style="margin-bottom: 2vw !important" (click)="logout()">Logout</p>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-6 col-xs-12" *ngIf="getWishlist.length != 0">
+      <h2>Wishlist({{ getWishlist.length }})</h2>
+      <div class="row productsection">
+        <div
+          class="col-md-4 col-sm-6"
+          *ngFor="let store of getWishlist | paginate: { itemsPerPage: 12, currentPage: p }"
+        >
+          <div class="product-image">
+            {{ store.shop }}
+            <div class="productlike">
+              <div *ngIf="!store.photo">
+                <ngx-avatar name="{{ store.branch_name }}" size="100"></ngx-avatar>
+              </div>
+              <!-- <img *ngIf="!store.photo" src="assets/product/noimg.png" class="img-responsive" /> -->
+              <img
+                *ngIf="store.photo"
+                src="{{ store.photo }}"
+                class="img-responsive"
+                style="height: 150px; border-radius: 9px; width: 18vw"
+              />
+              <!-- <img src="../../customer/assets/dashboard/heart.png" class="img-responsive favourite_img"> -->
+              <div class="fav_div">
+                <img
+                  *ngIf="store.wishlist"
+                  src="assets/dashboard/block_heart.png"
+                  class="img-responsive favoite_heart"
+                  (click)="wishlist('delete', store.id)"
+                />
+                <img
+                  *ngIf="!store.wishlist"
+                  src="assets/dashboard/block_heart.png"
+                  class="img-responsive favoite_heart"
+                  (click)="wishlist('delete', store.id)"
+                />
+              </div>
+            </div>
+            <h4>{{ store.branch_name }}</h4>
+
+            <div>
+              <p style="height: 70px">{{ store.branch_address }}</p>
+              <!-- <p>{{store.branch_description}}</p> -->
+            </div>
+            <!-- <h5 (click)="alterDescriptionText()" class="read_more">{{ showShortDesciption ? 'Read more..': 'Read less...' }}</h5> -->
+            <button
+              type="button"
+              class="btn btn-default"
+              (click)="shop_now(store.id, store.branch_address, store.branch_name)"
+            >
+              Shop Now
+            </button>
+          </div>
+        </div>
+
+        <div *ngIf="getWishlist.length <= 0">
+          <p style="padding: 12vw; font-weight: 700; font-size: 20px">No Items available</p>
+        </div>
+      </div>
+      <div class="row">
+        <pagination-controls (pageChange)="p = $event" class="float-right pagination_stle"></pagination-controls>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-6 col-xs-12" *ngIf="getWishlist.length == 0">
+      <h2 style="margin-top: 5px">Wishlist({{ getWishlist.length }} items)</h2>
+      <div class="row">
+        <div style="padding: 0px 325px; height: 18vw; border-radius: 20px">
+          <img style="width: 125px; height: 125px; margin-top: 35px" src="assets/product/wishlist.png" />
+          <h2 style="margin-top: 16px; font-weight: 800">Empty Wishlist</h2>
+          <p style="margin-left: -97px; font-size: 18px">You have no shops in your wishlist. Start adding!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,145 @@
+<div class="container" id="main_header">
+  <div class="row">
+    <div class="col-md-2 col-xs-4" (click)="home()">
+      <img src="assets/login/logo.png" style="width: 11vw; height: 60px; cursor: pointer" class="img-responsive logo" />
+    </div>
+    <div class="col-md-5">
+      <div class="centerbox">
+        <div class="main-form-container">
+          <form id="" class="" method="post">
+            <div class="header_input">
+              <div class="search_pin">
+                <img src="assets/dashboard/map.png" style="margin-right: 8px; margin-left: -30px; height: 17px" />
+                <input
+                  type="text"
+                  class="main-input main-name"
+                  placeholder="Zip code or City/State"
+                  [(ngModel)]="zipcode"
+                  name="zipcode"
+                  (keyup)="onKeyDownZipcode($event)"
+                  
+                />
+              </div>
+              <div class="search_input">
+                <img src="assets/dashboard/search.png" style="margin-right: 8px; margin-left: -30px; height: 17px" />
+                <input
+                  type="text"
+                  matInput
+                  [formControl]="myControl"
+                  class="search_txt"
+                  [matAutocomplete]="auto"
+                  placeholder="Search Shops"
+                  [(ngModel)]="branch"
+                  (ngModelChange)="changeHotel(branch)"
+                />
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  [displayWith]="displayFn"
+                  (optionSelected)="onSelectionChange($event)"
+                >
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{ option.branch_name }}
+                  </mat-option>
+                </mat-autocomplete>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-xs-8" id="icon_cont" *ngIf="!profileName">
+      <ul class="list-inline" id="header_icons">
+        <li>
+          <a (click)="wishlist()"><img src="assets/dashboard/block_heart1.png" alt="" /></a>
+        </li>
+        <li>
+          <a><img src="assets/dashboard/bell.png" alt="" style="width: 18px; height: 22px" /></a>
+        </li>
+
+        <li>
+          <a (click)="mycart()"><img src="assets/profile/cart.svg" alt="" /></a>
+        </li>
+      </ul>
+
+      <ul id="proile">
+        <p style="cursor: pointer; margin-bottom: 2px" [routerLink]="['login']">Login /</p>
+        <p style="cursor: pointer; margin-bottom: 2px; margin-left: -68px" [routerLink]="['signup']">Register</p>
+        <li>
+          <a (click)="profile()"><img src="assets/dashboard/profile-user.png" alt="" /></a>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-5 col-xs-8" id="icon_cont" *ngIf="profileName">
+      <ul class="list-inline" id="header_icons">
+        <li>
+          <a (click)="wishlist()"><img src="assets/dashboard/block_heart1.png" alt="" /></a>
+        </li>
+        <li class="dropdown"> 
+          <a  class="notification">
+            <span *ngIf="notifybadge != 0" matBadge="{{ notifybadge }}" matBadgeSize="large">
+              <img #bell src="assets/dashboard/bell.png" alt="" style="width: 18px; height: 22px"
+            /></span>
+
+            <img #bell *ngIf="notifybadge == 0" src="assets/dashboard/bell.png" alt="" style="width: 18px; height: 22px" />
+          </a>
+          <div class="dropdown-content noti_cont" *ngIf="showNotification" #noti> 
+            <div *ngFor="let notify of notification_list">
+              <a (click)="order()" class="notify_details">
+             
+                <div>
+                  <img *ngIf="notify.order_status=='new'" src="assets/product/New.png" class="status_img"/>
+                  <img *ngIf="notify.order_status=='accepted'" src="assets/product/Accepted.png" class="status_img"/>
+                  <img *ngIf="notify.order_status=='completed'" src="assets/product/Completed.png" class="status_img"/>
+                  <img *ngIf="notify.order_status=='rejected'" src="assets/product/Rejected.png" class="status_img"/>
+                  <img *ngIf="notify.order_status=='processing'" src="assets/product/Processing.png" class="status_img"/>
+                  <img *ngIf="notify.order_status=='incomplete'" src="assets/product/Incomplete.png" class="status_img"/>
+                  <img *ngIf="notify.order_status=='refund issued'" src="assets/product/Refund Issued.png" class="status_img"/>
+                  <img *ngIf="notify.order_status=='ready for pickup'" src="assets/product/Ready for Pickup.png" class="status_img"/>
+                </div>
+                <div>
+                <span style="font-size: 15px; font-weight: 700">{{ notify.store_name }}</span> <br />
+                <span >{{ notify.description }} </span><br />
+                <span *ngIf="notify.order_status!='new'"><span style="font-weight: 700" >updated on:</span> {{ notify.created_on }} ago </span>
+                <span *ngIf="notify.order_status=='new'"><span style="font-weight: 700" >Created on:</span> {{ notify.created_on }} ago </span>
+                <hr />
+              </div>
+   
+              </a>
+            </div>
+          </div>
+        </li>
+      
+        <li>
+          <a (click)="mycart()"
+            ><span *ngIf="cartbadge != 0" matBadge="{{ cartbadge }}" matBadgeSize="large"
+              ><img src="assets/profile/cart.svg" alt="" style="background-color: white !important; border: none"
+            /></span>
+            <img
+              *ngIf="cartbadge == 0"
+              src="assets/profile/cart.svg"
+              alt=""
+              style="background-color: white !important; border: none"
+            />
+          </a>
+        </li>
+      </ul>
+
+      <ul id="proile">
+        <p style="font-size: 18px; font-weight: 600; margin: 2px 2px 2px 20px">{{ profileName }}</p>
+        <li>
+          <a (click)="profile()"
+            ><img *ngIf="!profilePic || profilePic == 'null'" src="assets/dashboard/profile-user.png" alt="" /><img
+              *ngIf="profilePic && profilePic != 'null'"
+              class="profile_pic"
+              src="{{ profilePic }}"
+              alt=""
+          />
+         </a>
+         
+        </li>
+        <mat-icon style="margin-left: -11vw;">arrow_drop_down</mat-icon>
+       
+      </ul>
+    </div>
+  </div>
+</div>

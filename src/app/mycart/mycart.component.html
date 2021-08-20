@@ -1,0 +1,156 @@
+<div class="container">
+  <div class="row location">
+    <div class="col-md-12">
+      <h2>My Cart</h2>
+    </div>
+    <ul class="breadcrumb">
+      <li *ngIf="isShowBranch_list"><a href="#">Home</a></li>
+      <li *ngIf="isShowBranch_list">
+        <a (click)="product_list()" style="cursor: pointer">{{ branch_list.branch_name }}</a>
+      </li>
+      <li><a (click)="myAccount()" style="cursor: pointer">My Account</a></li>
+      <li><a>My Cart</a></li>
+    </ul>
+  </div>
+
+  <div class="row productsec">
+    <div class="col-md-2 col-sm-2 col-xs-12">
+      <h2 style="font-size: 25px">My Account</h2>
+      <div class="category_list">
+        <p [routerLink]="['/profile']" routerLinkActive="active">Profile</p>
+        <br />
+        <p [routerLink]="['/mycart']" routerLinkActive="active">My Cart</p>
+        <br />
+        <p [routerLink]="['/myorders']" routerLinkActive="active">My Orders</p>
+        <br />
+        <p [routerLink]="['/wishlist']" routerLinkActive="active">My Wishlist</p>
+        <br />
+        <p [routerLink]="['/faq']" routerLinkActive="active">FAQ</p>
+        <br />
+        <p style="margin-bottom: 2vw !important" (click)="logout()">Logout</p>
+      </div>
+    </div>
+    <div class="col-md-10 col-sm-10 col-xs-10" *ngIf="GetMycartList.length != 0">
+      <div class="row" style="margin-top: 4px">
+        <div class="col-md-12">
+          <h2 style="margin-bottom: 15px">My Cart ({{ GetMycartList.length }} items)</h2>
+          <div class="product_table">
+            <table mat-table matSort [dataSource]="MycartTable" class="mat-elevation-z8">
+              <ng-container matColumnDef="sno">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>S.No</th>
+                <td mat-cell *matCellDef="let element">{{ element.sno }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="item_desc">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Item Name</th>
+                <td mat-cell *matCellDef="let element">{{ element.item_desc }}</td>
+              </ng-container>
+
+              <ng-container matColumnDef="quantity">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+                <td mat-cell *matCellDef="let element">
+                  <div class="row">
+                    <div class="col-md-1 col-sm-1 col-xs-1" style="cursor: pointer">
+                      <button
+                        type="button"
+                        value="-"
+                        class="minus"
+                        style="cursor: pointer"
+                        (click)="incfn1('minus', element.quantity, element.id, element.item_desc)"
+                      >
+                        -
+                      </button>
+                    </div>
+                    <div class="col-md-2 col-sm-2 col-xs-2">
+                      <input
+                        type="number"
+                        step="1"
+                        value="{{ element.quantity }}"
+                        title="Qty"
+                        size="4"
+                        placeholder=""
+                        inputmode="numeric"
+                        class="input-text qty text"
+                      />
+                    </div>
+                    <div class="col-md-1 col-sm-1 col-xs-1">
+                      <button
+                        type="button"
+                        value="+"
+                        class="plus"
+                        style="cursor: pointer"
+                        (click)="incfn1('plus', element.quantity, element.id, element.item_desc)"
+                      >
+                        +
+                      </button>
+                    </div>
+                  </div>
+                </td>
+              </ng-container>
+              <ng-container matColumnDef="price">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>$ Price</th>
+                <td mat-cell *matCellDef="let element">$ {{ element.price }}</td>
+              </ng-container>
+              <ng-container matColumnDef="total">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>$ Total Price</th>
+                <td mat-cell *matCellDef="let element">$ {{ element.price }}</td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+          </div>
+          <div class="row" style="float: left; margin-left: 2px; margin-top: 9px">
+            <button class="continue_shop" (click)="continue_shopping()">Continue shopping</button>
+          </div>
+        </div>
+      </div>
+      <div class="total_div">
+        <div class="row" style="float: right; margin-bottom: 5px">
+          <div class="col-md-6">Subtotal</div>
+          <div class="col-md-6 price_value">
+            <span>$</span> <span>{{ getmycartList.sub_total | number: '1.2-2' }}</span>
+          </div>
+        </div>
+        <div class="row" style="float: right; margin-bottom: 5px">
+          <div class="col-md-6">Tax</div>
+          <div class="col-md-6 price_value">
+            <span>$</span> <span>{{ getmycartList.total_tax | number: '1.2-2' }}</span>
+          </div>
+        </div>
+        <div class="row" style="float: right; margin-bottom: 10px">
+          <div class="col-md-6">Total (Tax incl.)</div>
+          <div class="col-md-6 price_value">
+            <span>$</span> <span>{{ getmycartList.total_amount | number: '1.2-2' }}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="form-check form-check-inline col-md-8 store_pickup">
+            <mat-radio-group aria-label="Select an option">
+              <mat-radio-button value="0" [checked]="true" name="radio" [(ngModel)]="store_pickup" class="radio_btn"
+                ><span style="font-size: 14px; font-weight: 600">Store Pick up</span></mat-radio-button
+              >
+            </mat-radio-group>
+          </div>
+        </div>
+        <div class="row" style="float: right">
+          <button class="Checkout_btn" (click)="checkout()">
+            $ {{ getmycartList.total_amount | number: '1.2-2' }} Checkout <mat-icon style="padding-left: 15px">arrow_right_alt</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-10 col-sm-10 col-xs-10" *ngIf="GetMycartList.length == 0">
+      <div class="row">
+        <div class="col-md-12">
+          <h2>My Cart ({{ GetMycartList.length }} items)</h2>
+          <div style="padding: 32px 325px; height: 18vw; border-radius: 20px">
+            <img style="width: 125px; height: 125px; margin-top: 35px" src="assets/product/e3.png" />
+            <h2 style="margin-top: 18px; font-weight: 800">Your cart is empty</h2>
+            <p>add items you want to shop</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

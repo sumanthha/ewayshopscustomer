@@ -1,0 +1,162 @@
+<!--INNER CONTAINER START-->
+
+<div class="container">
+  <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <mat-carousel
+      timings="250ms ease-in"
+      [autoplay]="true"
+      interval="5000"
+      color="accent"
+      maxWidth="auto"
+      proportion="25"
+      slides="5"
+      [loop]="true"
+      [hideArrows]="true"
+      [hideIndicators]="false"
+      [useKeyboard]="true"
+      [useMouseWheel]="false"
+      orientation="ltr"
+    >
+      <mat-carousel-slide
+        #matCarouselSlide
+        *ngFor="let slide of slides; let i = index"
+        [image]="slide.image"
+        overlayColor="#00000040"
+        [hideOverlay]="false"
+      ></mat-carousel-slide>
+    </mat-carousel>
+
+    <h3>
+      Your favorite <br />
+      neighborhood store
+    </h3>
+  </div>
+  <div class="row productsection">
+    <div class="col-md-12">
+      <h3>Top eWayShops</h3>
+    </div>
+    <div
+      class="col-md-3 col-sm-6"
+      *ngFor="
+        let store of new_list | paginate: { itemsPerPage: itemsPerPage, currentPage: page, totalItems: totalItems }
+      "
+    >
+      <div class="product-image">
+        <div class="productlike">
+          <div *ngIf="!store.photo">
+            <ngx-avatar name="{{ store.branch_name }}" size="100"></ngx-avatar>
+          </div>
+          <img
+            *ngIf="store.photo"
+            src="{{ store.photo }}"
+            class="img-responsive"
+            style="height: 150px; border-radius: 9px; width: 18vw"
+          />
+          <div class="fav_div">
+            <img
+              *ngIf="store.wishlist"
+              src="assets/dashboard/block_heart.png"
+              class="img-responsive favoite_heart"
+              (click)="wishlist('delete', store.id)"
+            />
+
+            <img
+              *ngIf="!store.wishlist"
+              src="assets/dashboard/block_heart1.png"
+              class="img-responsive favoite_heart"
+              (click)="wishlist('add', store.id)"
+            />
+          </div>
+        </div>
+        <h4>{{ store.branch_name }}</h4>
+
+        <div [ngClass]="{ 'show-less': showShortDesciption }">
+          <p style="height: 50px">{{ store.branch_address }}</p>
+        </div>
+        <button
+          type="button"
+          class="btn btn-default"
+          (click)="shop_now(store.id, store.branch_address, store.branch_name)"
+        >
+          Shop Now
+        </button>
+      </div>
+    </div>
+    <div *ngIf="new_list.length <= 0" style="margin-left: 38vw; margin-bottom: 25px">
+      <h2 style="text-align: center">No shops available</h2>
+    </div>
+  </div>
+  <div class="row" *ngIf="new_list.length > 0">
+    <pagination-controls (pageChange)="gty((page = $event))" class="float-right pagination_stle"></pagination-controls>
+  </div>
+</div>
+<!-- INNER CONTAINER END -->
+<div class="backdrop" [ngStyle]="{ display: display }"></div>
+<div
+  class="modal"
+  [ngStyle]="{ display: display }"
+  id="menu-addon"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="menuaddon"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content addon-wraapper">
+      <img
+        src="assets/login/logo.png"
+        class="color_logo"
+        alt="eWayShop-logo"
+        style="height: 68px; width: 172px !important; object-fit: cover; margin-left: 44px; margin-bottom: 22px"
+      />
+      <div class="modal-header" style="display: block !important">
+        <h2 class="modal-title head">Login</h2>
+        <br />
+
+        <button type="button" class="close" (click)="modalClose()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      
+      <div class="modal-body">
+        
+        <div class="form_errors">
+          <span *ngIf="submitted && f.email.errors?.required" class="error">Email is required</span>
+          <span *ngIf="submitted && f.email.errors?.email" class="error">Please enter the valid email address</span>
+          <span *ngIf="submitted && f.password.errors?.required" class="error">Password is required</span>
+        </div>
+        <form class="login-form" [formGroup]="loginForm" (ngSubmit)="login()">
+          <mat-form-field class="login-full-width">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+          </mat-form-field>
+
+          <mat-form-field class="login-full-width password_field">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="show_button ? 'text' : 'password'"
+              formControlName="password"
+              [ngClass]="{ 'is-invalid': submitted && f.password.errors }"
+              matInput
+              showHideInput
+            />
+            <div class="show_password" (click)="showPass()">
+              <mat-icon [ngClass]="show ? 'visibility' : 'visibility_off'" matSuffix class="secondary-text"> </mat-icon>
+            </div>
+          </mat-form-field>
+
+          <div class="">
+            <button type="submit" (click)="login()" class="login_btn">Login</button>
+          </div>
+          <div class="account_info">
+            <a>Don't have an account ?</a>
+            <a class="register_name" [routerLink]="['/signup']"
+              ><span style="color: #72d826; font-weight: 500">Register</span></a
+            >
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
