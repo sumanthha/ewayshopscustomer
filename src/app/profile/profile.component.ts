@@ -182,6 +182,7 @@ export class ProfileComponent implements OnInit {
       secretAccessKey: '',
       region: 'us-east-1',
     });
+
     const contentType = name.type;
     const params = {
       Bucket: '',
