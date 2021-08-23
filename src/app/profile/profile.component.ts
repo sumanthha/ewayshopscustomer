@@ -10,6 +10,7 @@ import { CommonService } from '../common/common.service';
 import { threadId } from 'worker_threads';
 import { FormGroup, FormBuilder, Validators, FormControl, ValidationErrors, AbstractControl } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from '../../environments/environment';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
@@ -179,14 +180,14 @@ export class ProfileComponent implements OnInit {
     this.checkImage();
     var self = this;
     const bucket = new S3({
-      accessKeyId: '',
-      secretAccessKey: '',
-      region: 'us-east-1',
+      accessKeyId: environment.S3_accessKeyId,
+      secretAccessKey: environment.S3_secretAccessKey,
+      region: environment.S3_region,
     });
 
     const contentType = name.type;
     const params = {
-      Bucket: '',
+      Bucket: environment.S3_bucket,
       Key: name.name,
       Body: name,
       ACL: 'public-read',
